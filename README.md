@@ -1,7 +1,8 @@
 Alizhan Nurakhmetov
 Pokemon Battle 
-pokemons attack in order
-basic attack always deals 10 damage, type attacks deals 16 or 6 damage based on pokemon combinations
+
+GOAL:
+To defeat the rival Pokemon by choosing between a reliable Basic attack and a Type attack that rewards a good matchup
 
 HOW TO RUN:
 From the project folder: create and activate the virtual environment
