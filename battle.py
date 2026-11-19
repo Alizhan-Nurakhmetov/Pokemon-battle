@@ -4,8 +4,8 @@ from random import choice
 from urllib.request import urlopen, Request
 
 def starters():
-    return ("bulbasaur" , "charmander", "squirtle")
-"""Return the three starter names"""
+    """Return the three starter names"""
+    return ("bulbasaur", "charmander", "squirtle")
 @lru_cache(maxsize=3)
 def get_pokemon(name):
     """Get the name, type and HP"""
