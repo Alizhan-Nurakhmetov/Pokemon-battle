@@ -51,13 +51,13 @@ def play(battle, attack):
     hp[1] = max(0, hp[1] - hit)
     message = f"{player['name']} dealt {hit} damage"
     if hp[1] == 0:
-        message += "You win"
+        message += ". You win!"
     else:
         reply = choice(attacks)
         hit = damage (reply, rival, player)
         hp[0] = max(0, hp[0] - hit)
         message += f" {rival['name']} dealt {hit} damage"
         if hp[0] == 0:
-            message += "You lose"
-        return {"fighters": battle["fighters"], ["hp"]: hp}, message
+            message += ". You lose!"
+    return {"fighters": battle["fighters"], "hp": hp}, message
 

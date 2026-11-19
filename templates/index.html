@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starter Battle</title>
+<style>
+  body { max-width: 36rem; margin: 2rem auto; padding: 0 1rem; font: 1rem system-ui; color: white; background: #172332; }
+  article { padding: .8rem; margin: .6rem 0; background: #27394b; border-radius: .5rem; }
+  a, progress { color: #9ce6b2; accent-color: #9ce6b2; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+<h1>Starter Battle</h1>
+{% if screen == 'exit' %}
+  <p>You left the battle. <a href="/">Open main menu</a></p>
+{% else %}
+  <nav><a href="/">Battle</a> · <a href="/?show=history">History</a></nav>
+  <form method="post">
+    <button name="action" value="menu">Main menu</button>
+    <button name="action" value="exit">Exit</button>
+  </form>
+  {% for message in get_flashed_messages() %}
+    <p role="status">{{ message }}</p>
+  {% endfor %}
+  {% if screen == 'history' %}
+    <h2>Battle history</h2>
+    <pre>{{ log }}</pre>
+  {% elif battle %}
+    {% for fighter in battle["fighters"] %}
+      {% set hp = battle["hp"][loop.index0] %}
+      <article>
+        {{ 'You' if loop.first else 'Rival' }} · {{ fighter.name }} · {{ fighter.type | title }}
+        {{ hp }}/{{ fighter.hp }} HP
+        <progress aria-label="{{ fighter.name }} health" value="{{ hp }}" max="{{ fighter.hp }}"></progress>
+      </article>
+    {% endfor %}
+    {% if 0 not in battle["hp"] %}
+      <form method="post">
+        <input type="hidden" name="action" value="attack">
+        <button name="value" value="Basic">Basic attack</button>
+        <button name="value" value="Type">Type attack</button>
+      </form>
+    {% else %}
+      <p>{{ 'You win!' if battle["hp"][1] == 0 else 'You lose.' }}</p>
+    {% endif %}
+  {% else %}
+    <form method="post">
+      <label>Choose a starter
+        <select name="value">
+          {% for name in starters %}
+            <option value="{{ name }}">{{ name | title }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button name="action" value="start">Start battle</button>
+    </form>
+    <p>Grass beats Water, Water beats Fire, and Fire beats Grass.</p>
+  {% endif %}
+{% endif %}
+</html>
